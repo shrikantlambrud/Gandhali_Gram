@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}ग्रामपंचायत गांधली - आमच्याबद्दल{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(180deg, #e8f9ee 0%, #f9fff9 100%);
+      color: #333;
+    }
+
+    h2, h3 {
+      color: #165c2b;
+      font-weight: 700;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 25px;
+      font-size: 1.9rem;
+      color: #145a2b;
+    }
+
+    .section-title::after {
+      content: '';
+      width: 80px;
+      height: 4px;
+      display: block;
+      background: #198754;
+      margin: 10px auto 0;
+      border-radius: 10px;
+    }
+
+    .info-section {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    .info-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      background: #ffffff;
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 15px auto 10px;
+      object-fit: cover;
+      border: 4px solid #19875430;
+    }
+
+    .member-card .card { background: #eaf9f0; }
+    .employee-card .card { background: #fff7ed; }
+
+    ul { padding-left: 20px; }
+</style>
+
+<div class="container my-4">
+
+  <!-- ✅ Header Section -->
+  <div class="text-center mb-4">
+    <h2>🌿 आमच्याबद्दल</h2>
+    <p class="text-muted">
+      आमची ग्रामपंचायत गावाच्या विकासासाठी आणि नागरिकांच्या कल्याणासाठी नित्यंत कार्यरत आहे.
+    </p>
+  </div>
+
+  <!-- ✅ Basic Gram Panchayat Info -->
+  <div class="info-section">
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <h5><i class="bi bi-building me-2 text-success"></i>ग्रामपंचायत माहिती</h5>
+        <p><strong>🏡 गावाचे नाव:</strong> गांधली</p>
+        <p><strong>📍 तालुका:</strong> अमळनेर</p>
+        <p><strong>📌 जिल्हा:</strong> जळगाव</p>
+        <p><strong>📫 पिन कोड:</strong> 425420</p>
+        <p><strong>🆔 एलसीडी कोड:</strong> 02363</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5><i class="bi bi-people me-2 text-success"></i>लोकसंख्येची माहिती</h5>
+        <p><strong>एकूण कुटुंबे:</strong> 0</p>
+        <p><strong>एकूण लोकसंख्या:</strong> 0</p>
+        <p><strong>पुरुष:</strong> 0</p>
+        <p><strong>महिला:</strong> 0</p>
+        <p><strong>साक्षरता दर:</strong> 0%</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ✅ Mission & Objectives -->
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="info-section">
+        <h5>🎯 आमचे ध्येय</h5>
+        <p>आमच्या गावाचा सर्वांगीण विकास करून नागरिकांना उत्तम जीवनमान प्रदान करणे.</p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="info-section">
+        <h5>🌿 आमची उद्दिष्टे</h5>
+        <ul>
+          <li>पर्यावरणाचे संवर्धन</li>
+          <li>ग्रामसेवा व स्वच्छता</li>
+          <li>शिक्षण आणि महिला सक्षमीकरण</li>
+          <li>बालकल्याण कार्यक्रम</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ पदाधिकारी -->
+  <h3 class="section-title">निवडून आलेले पदाधिकारी</h3>
+
+  <div class="row member-card">
+
+    <div class="col-md-4 mb-4">
+      <div class="card text-center p-3">
+        <img src="{{ url_for('static', filename='images/sarpanch.jpg') }}">
+        <h5>श्री नरेंद्र शिवाजीराव पाटील</h5>
+        <p class="text-success fw-bold">सरपंच</p>
+        <p>📞 9420141727</p>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card text-center p-3">
+        <img src="{{ url_for('static', filename='images/upsarpanch.jpg') }}">
+        <h5>श्री शिवदास रमेश पारधी</h5>
+        <p class="text-success fw-bold">उपसरपंच</p>
+        <p>📞 9503551584</p>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card text-center p-3">
+        <img src="{{ url_for('static', filename='images/gramsevak.jpg') }}">
+        <h5>श्री प्रमोद रामकृष्ण पाटील</h5>
+        <p class="text-success fw-bold">ग्रामपंचायत अधिकारी</p>
+        <p>📞 1234567891</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ कर्मचारी माहिती -->
+  <h3 class="section-title">कर्मचारी माहिती</h3>
+
+  <div class="row employee-card">
+
+    <div class="col-md-3 mb-4">
+      <div class="card text-center p-3">
+        <img src="{{ url_for('static', filename='images/staff1.jpg') }}">
+        <h5>श्री मंगेश प्रकाश मांडे</h5>
+        <p class="text-warning fw-bold">संगणक परिचालक</p>
+        <p>📞 —</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+      <div class="card text-center p-3">
+        <img src="{{ url_for('static', filename='images/staff2.jpg') }}">
+        <h5>कविता सुनिल पाटील</h5>
+        <p class="text-warning fw-bold">सदस्या</p>
+        <p>📞 9552173821</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+      <div class="card text-center p-3">
+        <img src="{{ url_for('static', filename='images/staff3.jpg') }}">
+        <h5>राजश्री किरण महाजन</h5>
+        <p class="text-warning fw-bold">सदस्या</p>
+        <p>📞 8459759573</p>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+      <div class="card text-center p-3">
+        <img src="{{ url_for('static', filename='images/staff4.jpg') }}">
+        <h5>अशोक गिरीधर पाटील</h5>
+        <p class="text-warning fw-bold">सदस्य</p>
+        <p>📞 8421047288</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ Committees -->
+  <h3 class="section-title">ग्रामपंचायत स्तरावरील समित्या</h3>
+
+  <div class="info-section text-center">
+    <select class="form-select w-50 mx-auto mb-3">
+      <option selected disabled>कृपया एक माहिती निवडा</option>
+      <option>💰 वित्तीय अहवाल</option>
+      <option>📋 कामकाजाचा अहवाल</option>
+      <option>🌱 विकास योजना</option>
+    </select>
+    <p class="text-muted">वरील माहिती निवडून संबंधित अहवाल पहा.</p>
+  </div>
+
+</div>
+
+{% endblock %}

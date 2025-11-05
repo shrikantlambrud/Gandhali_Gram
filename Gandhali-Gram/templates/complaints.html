@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}तक्रार नोंदणी - ग्रामपंचायत गांधली{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(180deg, #e8f9ee 0%, #f9fff9 100%);
+    }
+
+    h2, h3, h4 {
+      color: #165c2b;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      color: #145a2b;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex-grow: 1;
+      height: 3px;
+      background: #198754;
+      margin-left: 10px;
+      border-radius: 10px;
+    }
+
+    .form-section {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+    }
+
+    .form-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    label {
+      font-weight: 600;
+      color: #165c2b;
+    }
+
+    input, textarea, select {
+      border-radius: 12px !important;
+    }
+
+    .btn-success {
+      background: #198754;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 30px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .btn-success:hover {
+      background: #157347;
+      transform: scale(1.05);
+    }
+
+    .complaints-section {
+      margin-top: 60px;
+    }
+
+    .complaint-card {
+      background: #f1fff4;
+      border-left: 6px solid #198754;
+      padding: 18px 20px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .complaint-card:hover {
+      background: #e7f9ec;
+      transform: scale(1.02);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .no-data {
+      background: #fff7e6;
+      padding: 13px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+      font-weight: 500;
+      color: #a56800;
+    }
+</style>
+
+<div class="container my-5">
+
+  <!-- ✅ Header Section -->
+  <div class="text-center mb-4">
+    <h2>📢 तक्रार नोंदणी</h2>
+    <p class="text-muted">आपली तक्रार सोप्या पद्धतीने नोंदवा आणि आम्ही तत्काळ प्रतिसाद देऊ.</p>
+  </div>
+
+  <!-- ✅ Complaint Form -->
+  <div class="form-section mb-5">
+
+    <h4 class="section-title"><i class="bi bi-file-earmark-text"></i> तक्रार फॉर्म</h4>
+
+    <form method="POST" action="{{ url_for('complaint_submit') }}" enctype="multipart/form-data">
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">नाव</label>
+          <input type="text" name="name" class="form-control" placeholder="आपले पूर्ण नाव" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">मोबाईल क्रमांक</label>
+          <input type="tel" name="phone" class="form-control" pattern="[0-9]{10}"
+            placeholder="उदा. ९८७६५४३२१०" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">पत्ता / लोकेशन</label>
+        <input type="text" name="address" class="form-control" placeholder="उदा. मुख्य रस्ता, गांधली" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">ईमेल (ऐच्छिक)</label>
+        <input type="email" name="email" class="form-control" placeholder="example@gmail.com">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">तक्रारीचा प्रकार</label>
+        <select name="category" class="form-select" required>
+          <option value="">निवडा</option>
+          <option>💧 पाणीपुरवठा समस्या</option>
+          <option>🧹 स्वच्छता / कचरा व्यवस्थापन</option>
+          <option>🛣️ रस्ते / सार्वजनिक सुविधा</option>
+          <option>💡 प्रकाश / वीज</option>
+          <option>📄 इतर</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">तक्रारीचे वर्णन</label>
+        <textarea name="description" rows="4" class="form-control"
+          placeholder="आपली तक्रार येथे लिहा..." required></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">तक्रारीचे छायाचित्र (ऐच्छिक)</label>
+        <input type="file" name="photo" class="form-control" accept="image/*">
+        <small class="text-muted">फक्त JPG / PNG स्वीकारले जातील</small>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-success px-4">
+          <i class="bi bi-send-fill me-2"></i>तक्रार नोंदवा
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}

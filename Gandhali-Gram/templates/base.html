@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ग्रामपंचायत गांधली{% endblock %}</title>
+
+    <!-- ✅ Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ✅ Custom CSS -->
+    <style>
+        body {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            background: #f4fff4;
+        }
+
+        /* ✅ Light Green Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #b2f7c1, #7fe194);
+            padding: 15px 0;
+            border-bottom: 3px solid #58c96c;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 24px;
+            color: #0c5320 !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #0c5320 !important;
+            margin-left: 12px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #064d1b !important;
+        }
+
+        .navbar-toggler {
+            background-color: #0c5320;
+        }
+
+
+        /* ✅ Footer - Light Green Premium Theme */
+        footer {
+            background: linear-gradient(180deg, #c7f9d7, #8ee7a9);
+            color: #054b1a;
+            padding: 45px 0;
+            border-top: 3px solid #58c96c;
+        }
+
+        footer h4 {
+            color: #064d1b;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #064d1b;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            color: #023b12;
+            text-decoration: underline;
+        }
+
+        .footer-section {
+            margin-bottom: 25px;
+        }
+
+        hr {
+            border-color: #0c5320;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                text-align: center;
+            }
+        }
+
+        /* ✅ Flash Messages Modified */
+        .alert {
+            border-radius: 10px;
+        }
+
+    </style>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- ✅ Light Green Header -->
+    <nav class="navbar navbar-expand-lg shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}"
+                     alt="" width="40" height="40" class="me-2">
+                ग्रामपंचायत गांधली
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon text-dark"></span>
+            </button>
+
+            <div class="collapse navbar-collapse text-center" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item"><a class="nav-link" href="/">मुख्यपृष्ठ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">आमच्याबद्दल</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/services">नागरिक सेवा</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/complaints">तक्रार नोंदणी</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/schemes">सरकारी योजना</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">संपर्क</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ✅ Flash Messages -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+
+    <!-- ✅ Page Content -->
+    <div class="container my-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <!-- ✅ Light Green Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+
+                <!-- Quick Links -->
+                <div class="col-md-4 footer-section">
+                    <h4>महत्वाचे दुवे</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="/">मुख्यपृष्ठ</a></li>
+                        <li><a href="/about">आमच्याबद्दल</a></li>
+                        <li><a href="/services">नागरिक सेवा</a></li>
+                        <li><a href="/schemes">सरकारी योजना</a></li>
+                        <li><a href="/complaints">तक्रार नोंदणी</a></li>
+                        <li><a href="/contact">संपर्क</a></li>
+                        <li><a href="/admin">प्रशासन लॉगिन</a></li>
+                    </ul>
+                </div>
+
+                <!-- Government Links -->
+                <div class="col-md-4 footer-section">
+                    <h4>सरकारी वेबसाईट</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.maharashtra.gov.in/" target="_blank">महाराष्ट्र शासन</a></li>
+                        <li><a href="https://jalgaon.gov.in/" target="_blank">जिल्हाधिकारी कार्यालय जळगाव</a></li>
+                        <li><a href="https://zpjalgaon.gov.in/" target="_blank">जिल्हा परिषद जळगाव</a></li>
+                        <li><a href="https://egramswaraj.gov.in/" target="_blank">ई-ग्रामस्वराज</a></li>
+                        <li><a href="https://pmayg.dord.gov.in/" target="_blank">प्रधानमंत्री आवास योजना</a></li>
+                        <li><a href="https://nrega.dord.gov.in/" target="_blank">मनरेगा</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-md-4 footer-section">
+                    <h4>संपर्क माहिती</h4>
+                    <p>
+                        📍 ग्रामपंचायत कार्यालय, गांधली<br>
+                        तालुका: अमळनेर, जिल्हा: जळगाव - 425420<br>
+                        महाराष्ट्र, भारत
+                    </p>
+                    <p>
+                        📞 9730551203<br>
+                        ✉️ gpgandali1@gmail.com<br>
+                        🕘 सोमवार - शुक्रवार: ९:४५ ते ६:१५
+                    </p>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <p class="text-center mb-1 fw-bold">
+                © 2025 सर्व हक्क राखीव — ग्रामपंचायत गांधली
+            </p>
+
+            <p class="text-center mb-0" style="font-weight:600;">
+                Developed & Managed by
+                <a href="https://proindietech.com" target="_blank" style="color:#064d1b; font-weight:700; text-decoration:underline;">
+                    ProindieTech Solutions
+                </a>
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- ✅ Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block script %}{% endblock %}
+</body>
+</html>

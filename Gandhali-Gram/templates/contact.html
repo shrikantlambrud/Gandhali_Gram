@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}संपर्क माहिती - ग्रामपंचायत गांधली{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(180deg, #e8f9ee 0%, #f9fff9 100%);
+      color: #333;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #165c2b;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: #145a2b;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex-grow: 1;
+      height: 3px;
+      background: #198754;
+      border-radius: 10px;
+      margin-left: 10px;
+    }
+
+    .info-card, .map-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+    }
+
+    .info-card:hover, .map-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+    }
+
+    .info-item i {
+      color: #198754;
+      font-size: 20px;
+      margin-right: 8px;
+    }
+
+    .highlight {
+      background: #fdeed9;
+      color: #b14f00;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      border-radius: 15px;
+    }
+</style>
+
+<div class="container my-5">
+
+    <div class="text-center mb-4">
+        <h2>📞 संपर्क माहिती</h2>
+        <p class="subtitle">आपल्या सूचना, तक्रारी आणि प्रश्नांसाठी आम्ही सदैव उपलब्ध आहोत</p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ✅ कार्यालयाचा पत्ता -->
+        <div class="col-md-5">
+            <div class="info-card">
+
+                <h4 class="section-title"><i class="bi bi-geo-alt-fill"></i> कार्यालयीन पत्ता</h4>
+
+                <div class="info-item mb-3">
+                    <p><strong>ग्रामपंचायत गांधली</strong><br>
+                        गाव: गांधली<br>
+                        तालुका: अमळनेर<br>
+                        जिल्हा: जळगाव - 425420<br>
+                        राज्य: महाराष्ट्र
+                    </p>
+                </div>
+
+                <div class="info-item">
+                    <i class="bi bi-telephone-fill"></i>
+                    <strong>फोन क्रमांक:</strong><br>
+                    ग्रामपंचायत: (02363) 264997<br>
+                    आपत्कालीन सेवा: 108
+                </div>
+
+                <div class="info-item mt-3">
+                    <i class="bi bi-envelope-fill"></i>
+                    <strong>ईमेल पत्ता:</strong><br>
+                    मुख्य ईमेल: <a href="mailto:gpgandhali1@gmail.com">gpgandhali1@gmail.com</a><br>
+                    तक्रारी: <a href="mailto:gpgandhali1@gmail.com">gpgandhali1@gmail.com</a>
+                </div>
+
+                <div class="info-item mt-3">
+                    <i class="bi bi-clock-fill"></i>
+                    <strong>कार्यालयीन वेळ:</strong><br>
+                    सोमवार ते शुक्रवार: सकाळी 9:45 ते सायं 6:15<br>
+                    शनिवार: बंद | रविवार: बंद<br>
+                    <span class="highlight">दुपारी 1:00 ते 2:00 विश्रांती</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ✅ Google Map Area -->
+        <div class="col-md-7">
+            <div class="map-card">
+                <h4 class="section-title"><i class="bi bi-map"></i> नकाशावर स्थान</h4>
+
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.2134483606913!2d74.0918976750525!3d16.30901648437988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc06589e021f7ef%3A0xd2ee329c5113cf3c!2sAajgaon%20Grampanchayat!5e0!3m2!1sen!2sin!4v1704025849923!5m2!1sen!2sin"
+                  allowfullscreen="" loading="lazy">
+                </iframe>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

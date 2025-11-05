@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Use a modern, clean font */
+        body {
+            font-family: 'Inter', 'Segoe UI', 'Noto Sans Devanagari', sans-serif;
+        }
+
+        /* Simple fade-in animation for page content */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apply the animation to the active page */
+        .content-panel:not(.hidden) {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6366f1;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
+    </style>
+</head>
+<body class="bg-slate-100">
+    
+    <!-- Toast Notification for Form Submissions -->
+    <div id="toast-notification" class="fixed top-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg z-50 hidden transition-all duration-300">
+        <span id="toast-message"></span>
+    </div>
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <nav class="w-full md:w-64 bg-slate-900 text-white flex-shrink-0">
+            <div class="p-6 flex items-center justify-center md:justify-start space-x-3">
+                <i data-lucide="shield-check" class="w-8 h-8 text-indigo-400"></i>
+                <span class="text-2xl font-bold hidden md:inline">Admin Panel</span>
+            </div>
+            
+            <ul class="flex flex-row md:flex-col justify-around md:justify-start md:mt-6">
+                <!-- Navigation Item -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link active-nav" onclick="showPage('page-dashboard', this)">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </li>
+                <!-- Navigation Item -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('page-team', this)">
+                        <i data-lucide="users"></i>
+                        <span class="nav-text">Manage Team</span>
+                    </a>
+                </li>
+                <!-- Navigation Item -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('page-complaints', this)">
+                        <i data-lucide="shield-alert"></i>
+                        <span class="nav-text">Complaints</span>
+                    </a>
+                </li>
+                <!-- Navigation Item -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('page-announcements', this)">
+                        <i data-lucide="send"></i>
+                        <span class="nav-text">Announcements</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+
+            <!-- ======================= -->
+            <!--    DASHBOARD PAGE       -->
+            <!-- ======================= -->
+            <div id="page-dashboard" class="content-panel">
+                <h1 class="text-3xl font-bold text-slate-800 mb-6">Welcome, Admin!</h1>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+    <div class="flex items-center justify-between">
+        <div>
+            <div class="text-sm font-medium text-slate-500">Total Complaints</div>
+            <div class="text-3xl font-bold text-slate-900">{{ total_complaints }}</div>
+        </div>
+        <div class="p-3 bg-red-100 rounded-full">
+            <i data-lucide="shield-alert" class="text-red-600"></i>
+        </div>
+    </div>
+</div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-sm font-medium text-slate-500">Team Members</div>
+                                <div class="text-3xl font-bold text-slate-900">{{ total_team }}</div>
+                            </div>
+                            <div class="p-3 bg-blue-100 rounded-full">
+                                <i data-lucide="users" class="text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-sm font-medium text-slate-500">Announcements Sent</div>
+                                <div class="text-3xl font-bold text-slate-900">{{ total_announcements }}</div>
+                            </div>
+                            <div class="p-3 bg-green-100 rounded-full">
+                                <i data-lucide="send" class="text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="launch-grid">
+                    <a href="home.html" class="launch-card">
+                        <div>
+                            <strong>Public Home</strong>
+                            <span>मुख्य संकेतस्थळ पाहा</span>
+                        </div>
+                        <div class="icon-wrap"><i data-lucide="home"></i></div>
+                    </a>
+                    <a href="Service.html" class="launch-card">
+                        <div>
+                            <strong>Citizen Services</strong>
+                            <span>नागरिक सेवा सूची</span>
+                        </div>
+                        <div class="icon-wrap"><i data-lucide="layers"></i></div>
+                    </a>
+                    <a href="schemes.html" class="launch-card">
+                        <div>
+                            <strong>Government Schemes</strong>
+                            <span>योजना माहिती</span>
+                        </div>
+                        <div class="icon-wrap"><i data-lucide="file-text"></i></div>
+                    </a>
+                    <a href="complaints.html" class="launch-card">
+                        <div>
+                            <strong>Complaints Portal</strong>
+                            <span>तक्रार नोंदणी पृष्ठ</span>
+                        </div>
+                        <div class="icon-wrap"><i data-lucide="shield-alert"></i></div>
+                    </a>
+                    <a href="about.html" class="launch-card">
+                        <div>
+                            <strong>About Gram Panchayat</strong>
+                            <span>संस्थेची माहिती</span>
+                        </div>
+                        <div class="icon-wrap"><i data-lucide="book-open"></i></div>
+                    </a>
+                    <a href="contact.html" class="launch-card">
+                        <div>
+                            <strong>Contact Desk</strong>
+                            <span>संपर्क तपशील</span>
+                        </div>
+                        <div class="icon-wrap"><i data-lucide="phone"></i></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ======================= -->
+            <!--     MANAGE TEAM PAGE    -->
+            <!-- ======================= -->
+            <div id="page-team" class="content-panel hidden">
+                <h1 class="text-3xl font-bold text-slate-800 mb-6">Manage Team</h1>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Add Member Form -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-xl shadow-lg">
+                            <h2 class="text-xl font-semibold mb-4">Add New Member</h2>
+                            <form id="team-form" class="space-y-4" enctype="multipart/form-data">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
+                                    <input type="text" id="name" name="name" class="form-input" placeholder="e.g., Jane Doe" required>
+                                </div>
+                                <div>
+                                    <label for="position" class="block text-sm font-medium text-slate-700">Position</label>
+                                    <input type="text" id="position" name="position" class="form-input" placeholder="e.g., Village Head" required>
+                                </div>
+                                <div>
+                                    <label for="photo" class="block text-sm font-medium text-slate-700">Upload Photo</label>
+                                    <input type="file" id="photo" name="photo" class="form-input" accept="image/*" required>
+                                    <small class="text-xs text-slate-500">JPG, PNG किंवा WEBP फाइल निवडा.</small>
+                                </div>
+                                <button type="submit" class="form-button">
+                                    <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>
+                                    Add Member
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Current Team Display -->
+                    <div class="lg:col-span-2">
+                        <h2 class="text-xl font-semibold mb-4">Current Team</h2>
+                        <div id="team-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Sample Team Card 1 -->
+                            <div class="team-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105" data-member-name="Ravi Kumar">
+                                <button type="button" class="team-remove-btn" data-action="remove-member" aria-label="Remove Ravi Kumar">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                </button>
+                                <img src="https://placehold.co/600x400/6366f1/white?text=Team+Photo" alt="Team Member Photo" class="w-full h-48 object-cover">
+                                <div class="p-4">
+                                    <h3 class="text-lg font-bold text-slate-900">Ravi Kumar</h3>
+                                    <p class="text-indigo-600 font-medium">Sarpanch (Village Head)</p>
+                                </div>
+                            </div>
+                            <!-- Sample Team Card 2 -->
+                            <div class="team-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105" data-member-name="Priya Sharma">
+                                <button type="button" class="team-remove-btn" data-action="remove-member" aria-label="Remove Priya Sharma">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                </button>
+                                <img src="https://placehold.co/600x400/a855f7/white?text=Team+Photo" alt="Team Member Photo" class="w-full h-48 object-cover">
+                                <div class="p-4">
+                                    <h3 class="text-lg font-bold text-slate-900">Priya Sharma</h3>
+                                    <p class="text-indigo-600 font-medium">Secretary</p>
+                                </div>
+                            </div>
+                            <!-- More cards would be added here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= -->
+            <!--    COMPLAINTS PAGE      -->
+            <!-- ======================= -->
+        <div id="page-complaints" class="content-panel">
+    <h1 class="text-3xl font-bold text-slate-800 mb-6">View Complaints</h1>
+
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+
+        <div class="overflow-x-auto">
+            <table class="w-full min-w-max text-left">
+                <thead class="bg-slate-200">
+                    <tr>
+                        <th class="table-header">Name</th>
+                        <th class="table-header">Contact Info</th>
+                        <th class="table-header">Date</th>
+                        <th class="table-header">Complaint</th>
+                        <th class="table-header">Location</th>
+                        <th class="table-header">Status</th>
+                        <th class="table-header">Images</th>
+                        <th class="table-header">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y divide-slate-200">
+
+    {% for c in complaints %}
+    <tr class="complaint-row hover:bg-slate-50 transition-colors">
+
+        <td class="table-cell">{{ c.name }}</td>
+        <td class="table-cell">{{ c.phone }}</td>
+        <td class="table-cell">{{ c.date }}</td>
+        <td class="table-cell max-w-xs truncate">{{ c.description }}</td>
+        <td class="table-cell">{{ c.address }}</td>
+
+        <td class="table-cell">
+            <span class="status-pill" data-status-pill data-status="{{ c.status | lower }}">
+                {{ c.status }}
+            </span>
+        </td>
+
+        <td class="table-cell text-sm text-slate-500">
+            {% if c.photo %}
+                <a href="/static/uploads/{{ c.photo }}" target="_blank" class="text-blue-600 underline">
+                    View
+                </a>
+            {% else %}
+                —
+            {% endif %}
+        </td>
+
+        <td class="table-cell space-x-2">
+            <button class="action-button-green" data-action="resolve" data-id="{{ c.id }}">
+                <i data-lucide="check" class="w-4 h-4"></i>
+            </button>
+
+            <button class="action-button-red" data-action="delete" data-id="{{ c.id }}">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+        </td>
+
+    </tr>
+    {% endfor %}
+
+</tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+            <!-- ======================= -->
+            <!--  ANNOUNCEMENTS PAGE     -->
+            <!-- ======================= -->
+            <div id="page-announcements" class="content-panel hidden">
+                <h1 class="text-3xl font-bold text-slate-800 mb-6">Create Announcement</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Announcement Form -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <form id="announcement-form" class="space-y-4" enctype="multipart/form-data">
+                            <div>
+                                <label for="title" class="block text-sm font-medium text-slate-700">Title</label>
+                                <input type="text" id="title" name="title" class="form-input" placeholder="e.g., Village Meeting" required>
+                            </div>
+                            
+                            <div>
+                                <label for="content" class="block text-sm font-medium text-slate-700">Message</label>
+                                <textarea id="content" name="content" rows="6" class="form-input" placeholder="Write your announcement text here..."></textarea>
+                            </div>
+
+                            <div>
+                                <label for="media-type" class="block text-sm font-medium text-slate-700">Media Type</label>
+                                <select id="media-type" name="media-type" class="form-input">
+                                    <option value="text">Text Only</option>
+                                    <option value="image">Image</option>
+                                    <option value="video">Video</option>
+                                </select>
+                            </div>
+
+                            <div id="media-file-group" class="hidden">
+                                <label for="media-file" class="block text-sm font-medium text-slate-700">Upload Media</label>
+                                <input type="file" id="media-file" name="media-file" class="form-input" accept="image/*,video/*">
+                                <small class="text-xs text-slate-500">JPEG, PNG, WEBP अथवा MP4/WEBM फाईल निवडा.</small>
+                            </div>
+                            
+                            <button type="submit" class="form-button">
+                                <i data-lucide="send" class="w-5 h-5 mr-2"></i>
+                                Post Announcement
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Live Preview -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 border-b pb-2">Live Preview</h3>
+                        <div class="space-y-4">
+                            <h2 id="preview-title" class="text-2xl font-bold text-slate-800">Your Title Here</h2>
+                            <!-- Preview Image -->
+                            <img id="preview-image" src="" alt="Preview" class="w-full rounded-lg hidden">
+                            <!-- Preview Video -->
+                            <div id="preview-video" class="hidden">
+                                <video id="preview-video-player" controls class="w-full rounded-lg"></video>
+                            </div>
+                            <p id="preview-content" class="text-slate-700">Your message content will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Define reusable styles with Tailwind's @apply -->
+    <style>
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            color: #cbd5f5;
+            text-decoration: none;
+            transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            border-radius: 0.75rem;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            background-color: #334155;
+            color: #f8fafc;
+        }
+        .nav-link svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .nav-item {
+            flex: 1 1 0%;
+            display: flex;
+        }
+        @media (min-width: 768px) {
+            .nav-item {
+                flex: none;
+            }
+            .nav-link {
+                border-radius: 0.75rem 0 0 0.75rem;
+            }
+        }
+        @media (max-width: 767px) {
+            .nav-link {
+                justify-content: center;
+            }
+        }
+        .nav-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        @media (min-width: 768px) {
+            .nav-text {
+                font-size: 1rem;
+            }
+        }
+        .active-nav {
+            background-color: #4f46e5;
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+        }
+        .form-input {
+            width: 100%;
+            margin-top: 0.25rem;
+            padding: 0.5rem 0.75rem;
+            background-color: #ffffff;
+            border: 1px solid #cbd5f5;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+        .form-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background-color: #4f46e5;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 18px rgba(79, 70, 229, 0.25);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .form-button:hover {
+            background-color: #4338ca;
+            box-shadow: 0 14px 24px rgba(67, 56, 202, 0.32);
+            transform: translateY(-2px);
+        }
+        .form-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+        }
+        .table-header {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #334155;
+            background-color: #e2e8f0;
+        }
+        .table-cell {
+            padding: 0.75rem 1rem;
+            font-size: 0.9375rem;
+            color: #1f2937;
+        }
+        .action-button-green,
+        .action-button-red {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+            border: none;
+        }
+        .action-button-green {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.85), rgba(22, 163, 74, 0.9));
+            color: #f0fdf4;
+        }
+        .action-button-green:hover {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(22, 163, 74, 1));
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 16px 28px rgba(22, 163, 74, 0.28);
+        }
+        .action-button-red {
+            background: linear-gradient(135deg, rgba(248, 113, 113, 0.88), rgba(239, 68, 68, 0.92));
+            color: #fef2f2;
+        }
+        .action-button-red:hover {
+            background: linear-gradient(135deg, rgba(248, 113, 113, 1), rgba(220, 38, 38, 1));
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 16px 28px rgba(239, 68, 68, 0.28);
+        }
+
+        .complaint-row {
+            position: relative;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .complaint-row:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+        }
+
+        .team-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card .team-remove-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.85), rgba(225, 29, 72, 0.92));
+            color: #fff1f2;
+            box-shadow: 0 12px 24px rgba(190, 24, 93, 0.28);
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .team-card:hover .team-remove-btn,
+        .team-card:focus-within .team-remove-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-card .team-remove-btn:hover {
+            box-shadow: 0 16px 28px rgba(190, 24, 93, 0.35);
+            transform: translateY(-1px) scale(1.04);
+        }
+
+        .team-card .team-remove-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.35);
+        }
+
+        @media (hover: none) {
+            .team-card .team-remove-btn {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .team-card-remove {
+            animation: teamCardFade 0.26s ease forwards;
+        }
+
+        @keyframes teamCardFade {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(129, 140, 248, 0.32));
+            color: #312e81;
+            box-shadow: 0 8px 18px rgba(79, 70, 229, 0.16);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-pill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.18);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .status-pill:hover {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 14px 26px rgba(79, 70, 229, 0.22);
+        }
+
+        .status-pill:hover::after {
+            opacity: 1;
+        }
+
+        .status-pill.status-new {
+            background: linear-gradient(140deg, rgba(252, 165, 165, 0.28), rgba(239, 68, 68, 0.32));
+            color: #b91c1c;
+        }
+
+        .status-pill.status-in-progress {
+            background: linear-gradient(140deg, rgba(253, 224, 71, 0.28), rgba(234, 179, 8, 0.32));
+            color: #b45309;
+        }
+
+        .status-pill.status-resolved {
+            background: linear-gradient(140deg, rgba(134, 239, 172, 0.28), rgba(16, 185, 129, 0.32));
+            color: #047857;
+        }
+
+        .status-pill.status-archived {
+            background: linear-gradient(140deg, rgba(148, 163, 184, 0.28), rgba(71, 85, 105, 0.32));
+            color: #0f172a;
+        }
+
+        .status-pill.pulse {
+            animation: pulseGlow 1.1s ease forwards;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.0);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 0 0 12px rgba(129, 140, 248, 0.12);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.0);
+            }
+        }
+
+        .row-fade-out {
+            animation: fadeOutDown 0.35s ease forwards;
+        }
+
+        @keyframes fadeOutDown {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+        }
+
+        .launch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.1rem;
+            margin-top: 2.5rem;
+        }
+
+        .launch-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.15rem 1.3rem;
+            border-radius: 1rem;
+            color: #0f172a;
+            background: linear-gradient(140deg, rgba(99,102,241,0.12), rgba(6,182,212,0.14));
+            box-shadow: 0 14px 32px rgba(15,23,42,0.12);
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .launch-card .icon-wrap {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(99,102,241,0.18);
+            display: grid;
+            place-items: center;
+            color: #4338ca;
+        }
+
+        .launch-card strong {
+            font-size: 1.05rem;
+        }
+
+        .launch-card span {
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .launch-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 38px rgba(15,23,42,0.18);
+        }
+    </style>
+
+    <script>
+        // Activate Lucide Icons
+        lucide.createIcons();
+
+        // --- Single Page Application (SPA) Navigation ---
+    const contentPanels = document.querySelectorAll('.content-panel');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const teamGrid = document.getElementById('team-grid');
+    const teamForm = document.getElementById('team-form');
+
+        function showPage(pageId, clickedLink) {
+            // Hide all content panels
+            contentPanels.forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            
+            // Show the target panel
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
+            // Update active state on nav links
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+            });
+            if (clickedLink) {
+                clickedLink.classList.add('active-nav');
+            }
+        }
+
+        // Show the dashboard by default
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('page-dashboard', document.querySelector('.nav-link'));
+        });
+
+        // --- Toast Notification ---
+        const toast = document.getElementById('toast-notification');
+        const toastMessage = document.getElementById('toast-message');
+        
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000); // Hide after 3 seconds
+        }
+
+        // --- Form Handling ---
+
+        // Team Form
+        if (teamForm) {
+        teamForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = e.target.name.value.trim();
+            const position = e.target.position.value.trim();
+            const photoInput = e.target.photo;
+            const photoFile = photoInput.files[0];
+
+            if (!photoFile) {
+                showToast('कृपया फोटो निवडा.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const imageSrc = evt.target.result;
+                const displayName = name || 'अनामिक सदस्य';
+
+                const card = document.createElement('div');
+                card.className = 'team-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105';
+                card.dataset.memberName = displayName;
+                card.innerHTML = `
+                    <button type="button" class="team-remove-btn" data-action="remove-member" aria-label="Remove ${displayName}">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                    <img src="${imageSrc}" alt="${name || 'Team Member'}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-slate-900">${displayName}</h3>
+                        <p class="text-indigo-600 font-medium">${position || ''}</p>
+                    </div>
+                `;
+
+                if (teamGrid) {
+                    teamGrid.prepend(card);
+                }
+
+                lucide.createIcons();
+
+                showToast(`Team member ${name || 'नवीन सदस्य'} added!`);
+            };
+
+            reader.onerror = function() {
+                showToast('फोटो अपलोड करण्यात अडचण आली.');
+            };
+
+            reader.readAsDataURL(photoFile);
+
+            console.log('Adding team member:', {
+                name,
+                position,
+                photoName: photoFile.name,
+                photoSize: photoFile.size
+            });
+
+            e.target.reset();
+            photoInput.value = '';
+    });
+    }
+
+        if (teamGrid) {
+            teamGrid.addEventListener('click', (event) => {
+                const removeButton = event.target.closest('[data-action="remove-member"]');
+                if (!removeButton) {
+                    return;
+                }
+
+                const card = removeButton.closest('.team-card');
+                if (!card) {
+                    return;
+                }
+
+                const memberName = card.dataset.memberName || card.querySelector('h3')?.textContent?.trim() || 'Team member';
+                card.classList.add('team-card-remove');
+                setTimeout(() => {
+                    card.remove();
+                }, 260);
+                showToast(`${memberName} removed from team.`);
+            });
+        }
+
+        // Complaint Actions & Status Updates
+        const complaintsTableBody = document.querySelector('#page-complaints tbody');
+
+        const STATUS_CONFIG = {
+            'new': { label: 'New', className: 'status-new' },
+            'in-progress': { label: 'In Progress', className: 'status-in-progress' },
+            'resolved': { label: 'Resolved', className: 'status-resolved' },
+            'archived': { label: 'Archived', className: 'status-archived' }
+        };
+
+        const STATUS_SEQUENCE = ['new', 'in-progress', 'resolved', 'archived'];
+
+        function setStatus(pill, status, options = {}) {
+            if (!pill) return;
+            const animate = options.animate !== false;
+            const config = STATUS_CONFIG[status] || STATUS_CONFIG['new'];
+            pill.dataset.status = status;
+            pill.textContent = config.label;
+            pill.className = `status-pill ${config.className}`;
+            pill.classList.remove('pulse');
+
+            if (animate) {
+                // Trigger reflow to restart animation
+                void pill.offsetWidth;
+                pill.classList.add('pulse');
+                setTimeout(() => pill.classList.remove('pulse'), 900);
+            }
+        }
+
+        function nextStatus(current) {
+            const index = STATUS_SEQUENCE.indexOf(current);
+            if (index === -1) {
+                return STATUS_SEQUENCE[0];
+            }
+            return STATUS_SEQUENCE[(index + 1) % STATUS_SEQUENCE.length];
+        }
+
+        if (complaintsTableBody) {
+            complaintsTableBody.addEventListener('click', (event) => {
+                const button = event.target.closest('button[data-action]');
+                const pill = event.target.closest('[data-status-pill]');
+
+                if (button) {
+                    const action = button.dataset.action;
+                    const row = button.closest('tr');
+                    const rowPill = row ? row.querySelector('[data-status-pill]') : null;
+                    const currentStatus = rowPill ? rowPill.dataset.status : 'new';
+
+                    if (action === 'resolve') {
+                        if (currentStatus === 'resolved') {
+                            showToast('Complaint already resolved.');
+                        } else {
+                            setStatus(rowPill, 'resolved');
+                            showToast('Complaint marked as resolved.');
+                        }
+                    }
+
+                    if (action === 'delete' && row) {
+                        row.classList.add('row-fade-out');
+                        setTimeout(() => {
+                            row.remove();
+                        }, 340);
+                        showToast('Complaint removed from the list.');
+                    }
+
+                    return;
+                }
+
+                if (pill) {
+                    const updatedStatus = nextStatus(pill.dataset.status);
+                    setStatus(pill, updatedStatus);
+                    const label = STATUS_CONFIG[updatedStatus]?.label || 'Updated';
+                    showToast(`Status updated to ${label}.`);
+                }
+            });
+        }
+
+        document.querySelectorAll('[data-status-pill]').forEach(pill => {
+            setStatus(pill, pill.dataset.status || 'new', { animate: false });
+        });
+
+        // Announcement Form
+        const announcementForm = document.getElementById('announcement-form');
+        const mediaType = document.getElementById('media-type');
+        const mediaFileGroup = document.getElementById('media-file-group');
+        const mediaFileInput = document.getElementById('media-file');
+        let currentPreviewUrl = null;
+
+        if (mediaType && mediaFileGroup && mediaFileInput) {
+            mediaType.addEventListener('change', () => {
+                const type = mediaType.value;
+                if (type === 'image') {
+                    mediaFileGroup.classList.remove('hidden');
+                    mediaFileInput.accept = 'image/*';
+                    mediaFileInput.value = '';
+                    resetMediaPreview();
+                } else if (type === 'video') {
+                    mediaFileGroup.classList.remove('hidden');
+                    mediaFileInput.accept = 'video/*';
+                    mediaFileInput.value = '';
+                    resetMediaPreview();
+                } else {
+                    mediaFileGroup.classList.add('hidden');
+                    mediaFileInput.value = '';
+                    if (currentPreviewUrl) {
+                        URL.revokeObjectURL(currentPreviewUrl);
+                        currentPreviewUrl = null;
+                    }
+                }
+                updatePreview();
+            });
+        }
+
+        if (announcementForm) {
+            announcementForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const title = e.target.title.value.trim();
+                const file = mediaFileInput ? (mediaFileInput.files[0] || null) : null;
+                const payload = {
+                    title,
+                    content: e.target.content.value.trim(),
+                    mediaType: mediaType ? mediaType.value : 'text',
+                    mediaFileName: file ? file.name : null,
+                    mediaFileSize: file ? file.size : null
+                };
+
+                console.log('Posting announcement:', payload);
+                showToast(`Announcement "${title || 'ताजी माहिती'}" posted!`);
+
+                e.target.reset();
+                if (mediaType) {
+                    mediaType.value = 'text';
+                }
+                if (mediaFileGroup) {
+                    mediaFileGroup.classList.add('hidden');
+                }
+                if (mediaFileInput) {
+                    mediaFileInput.value = '';
+                }
+                if (currentPreviewUrl) {
+                    URL.revokeObjectURL(currentPreviewUrl);
+                    currentPreviewUrl = null;
+                }
+                updatePreview();
+            });
+        }
+
+        // --- Live Preview for Announcements ---
+        const titleInput = document.getElementById('title');
+        const contentInput = document.getElementById('content');
+        const previewVideoPlayer = document.getElementById('preview-video-player');
+
+        const previewTitle = document.getElementById('preview-title');
+        const previewContent = document.getElementById('preview-content');
+        const previewImage = document.getElementById('preview-image');
+        const previewVideo = document.getElementById('preview-video');
+        
+        function resetMediaPreview() {
+            if (currentPreviewUrl) {
+                URL.revokeObjectURL(currentPreviewUrl);
+                currentPreviewUrl = null;
+            }
+            previewImage.src = '';
+            previewImage.classList.add('hidden');
+            if (previewVideoPlayer) {
+                previewVideoPlayer.pause();
+                previewVideoPlayer.removeAttribute('src');
+                previewVideoPlayer.load();
+            }
+            previewVideo.classList.add('hidden');
+        }
+
+        function updatePreview() {
+            // Update Title
+            previewTitle.textContent = titleInput.value || 'Your Title Here';
+            // Update Content
+            previewContent.textContent = contentInput.value || 'Your message content will appear here...';
+
+            const type = mediaType ? mediaType.value : 'text';
+
+            // Hide all media previews
+            resetMediaPreview();
+
+            if (!mediaFileInput) {
+                return;
+            }
+
+            const file = mediaFileInput.files[0];
+            if (!file) {
+                return;
+            }
+
+            if (type === 'image' && file.type.startsWith('image/')) {
+                currentPreviewUrl = URL.createObjectURL(file);
+                previewImage.src = currentPreviewUrl;
+                previewImage.classList.remove('hidden');
+            } else if (type === 'video' && file.type.startsWith('video/')) {
+                currentPreviewUrl = URL.createObjectURL(file);
+                if (previewVideoPlayer) {
+                    previewVideoPlayer.src = currentPreviewUrl;
+                    previewVideo.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Add event listeners to form fields to update preview
+        titleInput.addEventListener('input', updatePreview);
+        contentInput.addEventListener('input', updatePreview);
+        if (mediaFileInput) {
+            mediaFileInput.addEventListener('change', updatePreview);
+        }
+
+    </script>
+</body>
+</html>

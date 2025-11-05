@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}सरकारी योजना - ग्रामपंचायत गांधली{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Noto Sans Devanagari', sans-serif;
+        background: linear-gradient(180deg, #e8f9ee 0%, #f9fff9 100%);
+        color: #1a1a1a;
+    }
+
+    /* ✅ Section Title – Premium */
+    .section-title {
+        text-align: center;
+        font-size: 26px;
+        font-weight: 700;
+        color: #145a2b;
+        margin: 40px 0 25px 0;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        width: 80px;
+        height: 4px;
+        background: #198754;
+        border-radius: 10px;
+        display: block;
+        margin: 10px auto 0;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #555;
+        margin-top: -10px;
+        margin-bottom: 35px;
+    }
+
+    /* ✅ Cards */
+    .scheme-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        transition: 0.3s;
+        margin-bottom: 20px;
+    }
+
+    .scheme-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+    }
+
+    .scheme-card h5 {
+        font-weight: 700;
+        color: #165c2b;
+    }
+
+    .scheme-icon {
+        font-size: 26px;
+        color: #198754;
+        margin-right: 10px;
+    }
+
+    .info-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .info-list li::before {
+        content: "✔ ";
+        color: #198754;
+        font-weight: bold;
+    }
+
+    /* ✅ Application Section */
+    .application-section {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 30px;
+        margin-top: 50px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        transition: 0.3s ease;
+    }
+
+    .application-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .no-data {
+        color: #777;
+        background: #fff7e6;
+        padding: 10px 15px;
+        border-radius: 12px;
+        font-weight: 500;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+</style>
+
+<div class="container">
+
+    <!-- ✅ Page Title -->
+    <h2 class="section-title">सरकारी योजना</h2>
+    <p class="subtitle">केंद्र, राज्य आणि स्थानिक स्तरावरील सर्व योजनांची माहिती</p>
+
+    <!-- ✅ Filter Buttons (Future Use) -->
+    <div class="text-center mb-4">
+        <button class="btn btn-success px-4 py-2" style="border-radius:25px;">सर्व योजना</button>
+    </div>
+
+    <!-- ✅ केंद्र सरकारी योजना -->
+    <h2 class="section-title">🏛️ केंद्र सरकारी योजना</h2>
+
+    <div class="scheme-card text-center">
+        <p class="no-data">सध्या केंद्र सरकारी योजनांची माहिती उपलब्ध नाही</p>
+    </div>
+
+    <!-- ✅ राज्य सरकारी योजना -->
+    <h2 class="section-title">🏠 राज्य सरकारी योजना</h2>
+
+    <div class="scheme-card text-center">
+        <p class="no-data">सध्या राज्य सरकारी योजनांची माहिती उपलब्ध नाही</p>
+    </div>
+
+    <!-- ✅ ग्रामपंचायत योजना -->
+    <h2 class="section-title">🌿 ग्रामपंचायतीच्या योजना</h2>
+
+    <div class="scheme-card">
+        <h5 class="mb-3"><i class="bi bi-tools scheme-icon"></i> व्यवहारात असलेली कामे / योजना</h5>
+
+        <ul class="info-list">
+            <li>महारु ओंकार पाटील ते गाव दरवाजा: भूमिगत काँक्रीट गटार बांधकाम</li>
+            <li>दिवाण यशवंत पाटील ते आरोग्य केंद्र: भूमिगत गटार बांधकाम</li>
+            <li>पंडीत भगवान महाजन ते अंकुश चौधरी: गटार क्र. 1 बांधकाम</li>
+            <li>पंडीत भगवान महाजन ते अंकुश चौधरी: गटार क्र. 2 बांधकाम</li>
+            <li>कैलास संतोष महाजन ते लोटन भगवान पाटील: गटार बांधकाम</li>
+            <li>संजय गुलाब पाटील ते काकासट महाजन: गटार बांधकाम</li>
+            <li>उत्तम वडर ते गावाबाहेर नाल्याकडे: गटार बांधकाम</li>
+            <li>उत्तम वडर मागील दरवाजा ते नाल्याकडे: गटार बांधकाम</li>
+            <li>आबा पारधी ते ज्ञानेश्वर सुकदेव पाटील: गटार बांधकाम</li>
+        </ul>
+    </div>
+
+    <!-- ✅ अर्ज प्रक्रिया -->
+    <div class="application-section">
+        <h3 class="section-title">योजनांसाठी अर्ज प्रक्रिया</h3>
+
+        <div class="row">
+
+            <!-- Documents -->
+            <div class="col-md-6 mb-3">
+                <h5>📄 आवश्यक कागदपत्रे</h5>
+                <ul class="info-list">
+                    <li>आधार कार्ड</li>
+                    <li>निवासाचा पुरावा</li>
+                    <li>आय प्रमाणपत्र</li>
+                    <li>पासपोर्ट साइज फोटो</li>
+                    <li>बँक खाते तपशील</li>
+                </ul>
+            </div>
+
+            <!-- Where to Apply -->
+            <div class="col-md-6 mb-3">
+                <h5>📌 अर्ज कुठे करावा?</h5>
+                <p><strong>ग्रामपंचायत कार्यालय:</strong> स्थानिक योजनांसाठी</p>
+                <p><strong>तालुका कार्यालय:</strong> राज्य सरकारी योजनांसाठी</p>
+                <p><strong>ऑनलाइन पोर्टल:</strong> महा-ई-सेवा / भारत पोर्टल (लवकरच सुविधा)</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

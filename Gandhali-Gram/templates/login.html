@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<style>
+    .login-box {
+        max-width: 420px;
+        margin: 70px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
+    }
+
+    .login-box h3 {
+        text-align: center;
+        color: #2e7d32;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .login-box p {
+        text-align: center;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #2e7d32;
+    }
+
+    .btn-login {
+        width: 100%;
+        background-color: #2e7d32;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .btn-login:hover {
+        background-color: #1b5e20;
+    }
+</style>
+
+<div class="login-box">
+
+    <h3>🔐 Login</h3>
+    <p>तुमचे लॉगिन तपशील भरा</p>
+
+    <!-- ✅ Show Flask flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('login') }}">
+
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
+        <button class="btn-login" type="submit">Login</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

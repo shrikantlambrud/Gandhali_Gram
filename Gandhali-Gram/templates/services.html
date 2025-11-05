@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}नागरिक सेवा - ग्रामपंचायत गांधली{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Noto Sans Devanagari', sans-serif;
+        background: linear-gradient(180deg, #e8f9ee 0%, #f9fff9 100%);
+        color: #1a1a1a;
+    }
+
+    /* ✅ Premium Section Title */
+    .section-title {
+        text-align: center;
+        font-size: 26px;
+        font-weight: 700;
+        color: #145a2b;
+        margin: 40px 0 25px 0;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        width: 80px;
+        height: 4px;
+        background: #198754;
+        border-radius: 10px;
+        display: block;
+        margin: 10px auto 0;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #555;
+        margin-top: -10px;
+        margin-bottom: 30px;
+    }
+
+    /* ✅ Service Cards */
+    .service-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        transition: 0.3s;
+        height: 100%;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+    }
+
+    .service-card h5 {
+        color: #145a2b;
+        font-weight: 700;
+    }
+
+    .badge-success {
+        background: #198754;
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .info-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .info-list li::before {
+        content: "✔ ";
+        color: #198754;
+        font-weight: bold;
+    }
+
+    /* ✅ Process Steps */
+    .process-step {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        height: 100%;
+        transition: 0.3s ease;
+    }
+
+    .process-step:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+    }
+
+    .process-step span {
+        background: #145a2b;
+        color: white;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        line-height: 40px;
+        border-radius: 50%;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    /* ✅ Contact Section */
+    .contact-box {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        margin-top: 40px;
+        margin-bottom: 40px;
+        transition: 0.3s;
+    }
+
+    .contact-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+    }
+</style>
+
+<div class="container">
+
+    <!-- ✅ Page Title -->
+    <h2 class="section-title">नागरिक सेवा</h2>
+    <p class="subtitle">ग्रामपंचायतीकडून मिळणाऱ्या विविध सेवांची माहिती आणि अर्ज प्रक्रिया</p>
+
+    <!-- ✅ Filter (Future Use) -->
+    <div class="text-center mb-4">
+        <button class="btn btn-success px-4 py-2" style="border-radius: 25px; font-weight: 600;">सर्व सेवा</button>
+    </div>
+
+    <!-- ✅ Services -->
+    <h2 class="section-title">उपलब्ध सेवा</h2>
+
+    <div class="row g-4">
+
+        <!-- Service 1 -->
+        <div class="col-md-4">
+            <div class="service-card">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5>उत्पन्न प्रमाणपत्र</h5>
+                    <span class="badge-success">उपलब्ध</span>
+                </div>
+                <p>ग्रामपंचायतीमार्फत नागरिकांचे उत्पन्न प्रमाणपत्र जारी केले जाते.</p>
+
+                <p><strong>आवश्यक कागदपत्रे:</strong></p>
+                <ul class="info-list">
+                    <li>आधार कार्ड</li>
+                    <li>राहणीचा पुरावा</li>
+                    <li>उत्पन्नाचा पुरावा / पगार प्रमाणपत्र</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="col-md-4">
+            <div class="service-card">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5>जन्म नोंदणी</h5>
+                    <span class="badge-success">उपलब्ध</span>
+                </div>
+                <p>नवजात बालकाचा जन्म नोंदवून जन्म प्रमाणपत्र उपलब्ध.</p>
+
+                <p><strong>आवश्यक कागदपत्रे:</strong></p>
+                <ul class="info-list">
+                    <li>रुग्णालयाचा दाखला</li>
+                    <li>पालकांचे आधार कार्ड</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="col-md-4">
+            <div class="service-card">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5>विवाह नोंदणी</h5>
+                    <span class="badge-success">उपलब्ध</span>
+                </div>
+                <p>विवाह नोंदणी प्रक्रिया व विवाह प्रमाणपत्र जारी.</p>
+
+                <p><strong>आवश्यक कागदपत्रे:</strong></p>
+                <ul class="info-list">
+                    <li>आधार कार्ड</li>
+                    <li>फोटो</li>
+                    <li>साक्षीदारांचे तपशील</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ✅ Application Process -->
+    <h2 class="section-title">अर्ज प्रक्रिया</h2>
+
+    <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="process-step">
+                <span>1</span>
+                <h6>कागदपत्रे तयार करा</h6>
+                <p>आवश्यक कागदपत्रे गोळा करा.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="process-step">
+                <span>2</span>
+                <h6>अर्ज सादर करा</h6>
+                <p>ग्रामपंचायत कार्यालयात अर्ज द्या.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="process-step">
+                <span>3</span>
+                <h6>पडताळणी</h6>
+                <p>कागदपत्रांची तपासणी केली जाईल.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="process-step">
+                <span>4</span>
+                <h6>प्रमाणपत्र मिळवा</h6>
+                <p>निर्धारित वेळेत प्रमाणपत्र मिळेल.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Contact -->
+    <div class="contact-box">
+        <h3 class="section-title">सेवेसंबंधी चौकशी</h3>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5>📍 कार्यालयाचा पत्ता</h5>
+                <p>ग्रामपंचायत कार्यालय, गांधली</p>
+            </div>
+
+            <div class="col-md-6">
+                <h5>☎️ संपर्क तपशील</h5>
+                <p>
+                    <strong>ग्रामपंचायत अधिकारी:</strong> (02363) 264997 <br>
+                    <strong>ई-मेल:</strong> gpgandhali@gmail.com
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

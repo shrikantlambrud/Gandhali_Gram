@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% block title %}ग्रामपंचायत गांधली{% endblock %}
+{% block content %}
+
+<style>
+  body {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    background: linear-gradient(180deg, #e8f9ee 0%, #f9fff9 100%);
+    color: #2e7d32;
+  }
+
+ .hero-section {
+  height: 60vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 1.5s ease;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.hero-text p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ✅ Mobile Fix */
+@media (max-width: 576px) {
+  .hero-section { height: 40vh; }
+  .hero-text h1 { font-size: 32px; }
+}
+
+
+  /* ✅ Section Titles (Premium Style) */
+  .section-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #145a2b;
+    margin: 35px 0 25px 0;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    width: 80px;
+    height: 4px;
+    background: #198754;
+    border-radius: 10px;
+    display: block;
+    margin: 10px auto 0;
+  }
+
+  /* ✅ Cards */
+  .card {
+    border: none;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+  }
+
+  /* ✅ Gallery */
+  .carousel-item img {
+    border-radius: 20px;
+    height: 260px;
+    object-fit: cover;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  @media(max-width: 576px) {
+    .carousel-item img { height: 180px; }
+  }
+
+  /* ✅ Contact Button */
+  .btn-success {
+    background: #1b5e20;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 22px;
+    font-weight: 600;
+  }
+
+  .btn-success:hover {
+    background: #2e7d32;
+  }
+</style>
+
+<!-- ✅ HERO -->
+<section class="hero-section"
+         style="background-image: url('{{ url_for('static', filename='images/gandligrampancayat.png') }}');">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-text">
+    <h1>🌿 ग्रामपंचायत गांधली</h1>
+    <p>स्मार्ट ग्राम पुरस्कार प्राप्त गाव</p>
+    <a href="#services" class="btn btn-light mt-3">अधिक जाणून घ्या</a>
+  </div>
+</section>
+
+
+<!-- ✅ GALLERY -->
+<section id="gallery" class="container my-5">
+  <h2 class="section-title">📸 फोटो गॅलरी</h2>
+
+  <div id="photoGallery" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+      <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='images/gandli grampancayat.jpg') }}" class="d-block w-100">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='images/school.jpeg') }}" class="d-block w-100">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='images/seva.jpeg') }}" class="d-block w-100">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='images/zp.jpeg') }}" class="d-block w-100">
+      </div>
+
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='images/zp1.jpeg') }}" class="d-block w-100">
+      </div>
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#photoGallery" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#photoGallery" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</section>
+
+<!-- ✅ SERVICES -->
+<section id="services" class="container my-5">
+  <h2 class="section-title">🏛️ नागरिक सेवा</h2>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card p-4 text-center">
+        <h6 class="fw-bold">जन्म प्रमाणपत्र</h6>
+        <p>ग्रामपंचायत कार्यालयातून जन्म प्रमाणपत्र मिळवा.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4 text-center">
+        <h6 class="fw-bold">मृत्यू प्रमाणपत्र</h6>
+        <p>मृत्यू नोंदणी प्रक्रिया आणि प्रमाणपत्र मिळवा.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4 text-center">
+        <h6 class="fw-bold">निवास दाखला</h6>
+        <p>आपल्या पत्त्याची अधिकृत नोंदणी प्राप्त करा.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ✅ TEAM -->
+<section id="team" class="container my-5">
+  <h2 class="section-title">👥 पदाधिकारी आणि कर्मचारी</h2>
+
+  <div class="row g-4 text-center">
+
+    <div class="col-md-4">
+      <div class="card p-4 text-center">
+        <img src="{{ url_for('static', filename='images/sarpanch.jpg') }}"
+             class="rounded-circle mb-3 shadow mx-auto d-block"
+             width="120" height="120">
+        <h6 class="fw-bold mt-2">श्री नरेंद्र शिवाजीराव पाटील</h6>
+        <p class="text-muted">सरपंच</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4 text-center">
+        <img src="{{ url_for('static', filename='images/upsarpanch.jpg') }}"
+             class="rounded-circle mb-3 shadow mx-auto d-block"
+             width="120" height="120">
+        <h6 class="fw-bold mt-2">श्री शिवदास रमेश पारधी</h6>
+        <p class="text-muted">उपसरपंच</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4 text-center">
+        <img src="{{ url_for('static', filename='images/grampanchataadhikari.jpg') }}"
+             class="rounded-circle mb-3 shadow mx-auto d-block"
+             width="120" height="120">
+        <h6 class="fw-bold mt-2">श्री प्रमोद रामकृष्ण पाटील</h6>
+        <p class="text-muted">ग्रामपंचायत अधिकारी</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ✅ CONTACT -->
+<section id="contact" class="container my-5">
+  <h2 class="section-title">📞 संपर्क</h2>
+
+  <div class="card p-4">
+    <p><strong>📍 पत्ता:</strong> ग्रामपंचायत कार्यालय, गांधली, ता. अमळनेर, जि. जळगाव</p>
+    <p><strong>☎️ फोन:</strong> ०२१४५-२२४५६७</p>
+    <p><strong>✉️ ईमेल:</strong> info@gandhaligrampanchayat.in</p>
+
+    <a href="{{ url_for('contact') }}" class="btn btn-success mt-3">संपर्क करा</a>
+  </div>
+</section>
+
+{% endblock %}
